@@ -23,4 +23,9 @@ class Ticket_model extends CI_Model {
     public function add_new_ticket($ticket_data){
         $this->db->insert('ticket', $ticket_data);
     }
+
+    public function update_ticket_by_id($id,$ticket_data){
+        $this->db->update('ticket', $ticket_data, ['idTicket' => $id]);
+    } 
+
 }

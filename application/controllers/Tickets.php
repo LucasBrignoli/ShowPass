@@ -37,6 +37,7 @@ class Tickets extends CI_Controller {
 
 		$this->load->view('layouts/main', $main_data);
 	}
+
 	// create -> entrada de datos para un nuevo ticket (form) -> vista
 	public function create(){
 		$main_data = [
@@ -62,10 +63,33 @@ class Tickets extends CI_Controller {
 	
 	// edit -> entrada de datos para actualizar un ticket existente (form) -> vista
 	public function edit($id){
-		echo "Ruta tickets/edit/$id";
+		
+		$ticket = $this->ticket_model->get_ticket_by_id($id);
+
+		if($ticket == null){
+			show_404();
+		}
+
+		$main_data = [
+			'title' => 'Editar show #'. $id,
+			'inner_view_path' => 'tickets/edit',
+			'ticket' => $ticket
+		];
+
+		$this->load->view('layouts/main', $main_data);
 	}
 	// update -> procesa los nuevos datos del ticket editado -> proceso
-	public function update($id, $newData){
+	public function update($id){
+		$ticket_data = [
+			'name' => $this->input->post('name'),
+			'price' => $this->input->post('price'),
+			'state' => $this->input->post('state'),
+			'amount_available' => $this->input->post('amount_available'),
+			'date' => $this->input->post('date'),
+			'url' => $this->input->post('url')
+		];
+			$this->ticket_model->update_ticket_by_id($id,$ticket_data);
+			redirect('tickets');
 	}
 	// delete -> borra un ticket -> proceso
 	public function delete($id){

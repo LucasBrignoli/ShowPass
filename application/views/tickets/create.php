@@ -35,6 +35,12 @@
           <input type="date" class="form-control bg-dark text-light border-secondary" id="date" name="date" required min="<?php echo $minDate; ?>">
         </div>
 
+        <!-- Link -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Link:</label>
+          <input type="text" class="form-control bg-dark text-light border-secondary" id="name" name="url" placeholder="Ingrese el url" required>
+        </div>
+
         <!-- Boton de envío -->
         <div class="text-center mt-4">
          <button type="submit" class="btn btn-primary">Crear show</button>
