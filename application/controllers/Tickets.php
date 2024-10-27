@@ -93,5 +93,7 @@ class Tickets extends CI_Controller {
 	}
 	// delete -> borra un ticket -> proceso
 	public function delete($id){
+		$this->ticket_model->delete_ticket_by_id($id);
+		redirect('tickets');
 	}
 }

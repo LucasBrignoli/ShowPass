@@ -21,7 +21,7 @@
         </div>
 
         <!-- Campo oculto para indicar que el show está disponible -->
-        <input type="hidden" name="state" value="1">
+        <input type="hidden" name="state" value="0">
 
         <!-- Crear cantidad con condicion para que sea mayor a 0 -->
         <div class="mb-3">
@@ -38,7 +38,7 @@
         <!-- Link -->
         <div class="mb-3">
           <label for="name" class="form-label">Link:</label>
-          <input type="text" class="form-control bg-dark text-light border-secondary" id="name" name="url" placeholder="Ingrese el url" required>
+          <input type="text" class="form-control bg-dark text-light border-secondary" id="url" name="url" placeholder="Ingrese el url" required>
         </div>
 
         <!-- Boton de envío -->

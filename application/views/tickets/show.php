@@ -3,6 +3,33 @@
         text-align: center;
         vertical-align: middle;
     }
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .action-buttons a, .action-buttons button {
+        display: inline-block;
+    }
+
+    /* Botones personalizados */
+    .btn-dark {
+        background-color: #343a40;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        color: #343a40;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
 </style>
 
 <h1 class="text-center text-white my-5">Show</h1>
@@ -10,7 +37,6 @@
     <table class="table table-bordered table-dark table-striped">
         <thead>
           <tr>
-            <th scope="col" class="text-center">Estado</th>
             <th scope="col" class="text-center">Show</th>
             <th scope="col" class="text-center">Precio</th>
             <th scope="col" class="text-center">Fecha del show</th>
@@ -20,13 +46,6 @@
         </thead>
         <tbody>
             <tr>
-                <td class="align-middle">
-                    <?php if (!empty($ticket->state)): ?>
-                        <?php echo "Agotado"; ?>
-                    <?php else: ?>
-                        <?php echo "Disponible"; ?>
-                    <?php endif; ?>
-                </td>
                 <td class="align-middle">
                     <div class="d-flex flex-column align-items-center">
                         <span class="mb-2"><?php echo $ticket->name; ?></span>
@@ -38,14 +57,23 @@
                         <?php endif; ?>
                     </div>
                 </td>
-                <td class="align-middle"><?php echo '$'. $ticket->price; ?></td>
+                <td class="align-middle"><?php echo '$' . $ticket->price; ?></td>
                 <td class="align-middle"><?php echo $ticket->date; ?></td>
-                <td class="align-middle"><?php echo $ticket->amount_available; ?></td>
                 <td class="align-middle">
-                    <a href="<?php echo base_url('tickets'); ?>">Volver</a>
-                    |
-                    <a href="<?php echo base_url('tickets/edit/') . $ticket->idTicket; ?>">Editar</a> 
-                    | Borrar
+                    <?php if (!empty($ticket->state)): ?>
+                        <?php echo "Agotado"; ?>
+                    <?php else: ?>
+                        <?php echo $ticket->amount_available ?>
+                    <?php endif; ?>
+                </td>
+                <td class="align-middle">
+                    <div class="action-buttons">
+                        <a href="<?php echo base_url('tickets'); ?>" class="btn btn-dark btn-sm">Volver</a>
+                        <a href="<?php echo base_url('tickets/edit/') . $ticket->idTicket; ?>" class="btn btn-dark btn-sm">Editar</a>
+                        <form action="<?php echo base_url('tickets/delete/') . $ticket->idTicket; ?>" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-dark btn-sm">Eliminar</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         </tbody>

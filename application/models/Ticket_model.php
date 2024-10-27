@@ -28,4 +28,8 @@ class Ticket_model extends CI_Model {
         $this->db->update('ticket', $ticket_data, ['idTicket' => $id]);
     } 
 
+    public function delete_ticket_by_id($id){
+        $this->db->delete('ticket', ['idTicket' => $id]);
+    }
+
 }
