@@ -71,7 +71,7 @@ class Tickets extends CI_Controller {
         if($this->session->userdata('role') != 'admin'){
             show_error('No estás autorizado.');
         }
-
+    
         // Configuración del upload
         $config = [
             'upload_path' => $this->upload_path,
@@ -79,21 +79,18 @@ class Tickets extends CI_Controller {
             'max_size' => 2048,
             'encrypt_name' => TRUE
         ];
-
+    
         // Inicializar la librería de upload con la nueva configuración
         $this->upload->initialize($config);
-
-        // Variable para la URL de la imagen
-        $url = 'default.jpg';
-
+    
+        // Variable para la URL de la imagen - Ajustamos la ruta por defecto
+        $url = 'assets/uploads/shows/default.jpg';  // Asegúrate de que este archivo exista
+    
         // Intentar subir la imagen
         if (!empty($_FILES['url']['name'])) {
             if ($this->upload->do_upload('url')) {
                 $upload_data = $this->upload->data();
-                $url = $upload_data['file_name'];
-                
-                // Guardar la ruta relativa para la base de datos
-                $url = $this->upload_url . $url;
+                $url = $this->upload_url . $upload_data['file_name'];
             } else {
                 // Log del error para debugging
                 log_message('error', 'Error de subida: ' . $this->upload->display_errors());
@@ -102,7 +99,7 @@ class Tickets extends CI_Controller {
                 return;
             }
         }
-
+    
         // Preparar los datos del ticket
         $ticket_data = [
             'name' => $this->input->post('name'),      
@@ -112,7 +109,7 @@ class Tickets extends CI_Controller {
             'date' => $this->input->post('date'),
             'url' => $url
         ];
-
+    
         // Guardar el ticket
         $this->ticket_model->add_new_ticket($ticket_data);
         $this->session->set_flashdata('success', 'Show guardado correctamente');
