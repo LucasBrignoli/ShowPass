@@ -1,3 +1,136 @@
-h1 {
-    color: red;
+  .tickets-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+    
+    .ticket-card {
+        background: rgba(33, 37, 41, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        overflow: hidden;
+        transition: transform 0.2s;
+    }
+    
+    .ticket-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .ticket-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        background-color: #343a40;
+    }
+    
+    .ticket-content {
+        padding: 1rem;
+    }
+    
+    .ticket-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: white;
+        text-align: center;
+    }
+    
+    .ticket-info {
+        color: #dee2e6;
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .ticket-actions {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Estilos adicionales */
+    .ticket-image-placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #343a40;
+        color: #868e96;
+        height: 200px;
+        font-size: 1.2rem;
+    }
+
+    /* Botones personalizados */
+    .btn-dark {
+        background-color: #343a40;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        color: #343a40;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+    .page-background {
+    background-color: #05071e;
+    min-height: 100vh;
+    }
+/* Menú superior */
+.navbar {
+    background-color: rgba(33, 37, 41, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 2rem;
+}
+
+.navbar-brand, .nav-link {
+    color: #e9ecef !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    color: #a8b2ff !important;
+}
+
+/* Elementos del menú */
+.dropdown-menu {
+    background-color: rgba(33, 37, 41, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item {
+    color: #e9ecef;
+}
+
+.dropdown-item:hover {
+    background-color: #2c3035;
+    color: #7b88ff;
+}
+
+/* Footer/Copyright */
+.footer {
+    background-color: rgba(33, 37, 41, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e9ecef;
+    padding: 1rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.footer a {
+    color: #7b88ff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #a8b2ff;
 }

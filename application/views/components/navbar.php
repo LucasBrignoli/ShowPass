@@ -12,7 +12,9 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<?php echo base_url('tickets');?>">Lista de show</a></li>
+              <?php if($this->session->userdata('role') == 'admin'): ?>
               <li><a class="dropdown-item" href="<?php echo base_url('tickets/create');?>">Crear show</a></li>
+              <?php endif; ?>
             </ul>
           </li>
 
@@ -21,7 +23,12 @@
               Usuario
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<?php echo base_url('auth/register_form');?>">Registrarse</a></li>
+              <?php if($this->session->userdata('logged_in')): ?>
+              <li><a class="dropdown-item" href="<?php echo base_url('auth/logout');?>">Cerrar sesion</a></li>
+              <?php else: ?>
+                <li><a class="dropdown-item" href="<?php echo base_url('auth/register_form');?>">Registrarse</a></li>
+              <li><a class="dropdown-item" href="<?php echo base_url('auth/login_form');?>">Iniciar sesion</a></li>
+              <?php endif; ?>
             </ul>
           </li>
 

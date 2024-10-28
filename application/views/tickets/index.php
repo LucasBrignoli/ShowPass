@@ -5,7 +5,7 @@
         gap: 1.5rem;
         padding: 1.5rem;
     }
-    
+
     .ticket-card {
         background: rgba(33, 37, 41, 0.95);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -13,36 +13,36 @@
         overflow: hidden;
         transition: transform 0.2s;
     }
-    
+
     .ticket-card:hover {
         transform: translateY(-5px);
     }
-    
+
     .ticket-image {
         width: 100%;
         height: 200px;
         object-fit: cover;
         background-color: #343a40;
     }
-    
+
     .ticket-content {
         padding: 1rem;
     }
-    
+
     .ticket-title {
         font-size: 1.25rem;
         margin-bottom: 0.5rem;
         color: white;
         text-align: center;
     }
-    
+
     .ticket-info {
         color: #dee2e6;
         margin-bottom: 0.5rem;
         display: flex;
         justify-content: space-between;
     }
-    
+
     .ticket-actions {
         display: flex;
         gap: 0.5rem;
@@ -80,6 +80,9 @@
         color: white;
         border: none;
     }
+    body {
+        background-color: #05071e;
+    }
 </style>
 
 <h1 class="text-center text-white my-5">Lista de shows</h1>
@@ -97,19 +100,20 @@
                         <span>Sin imagen</span>
                     </div>
                 <?php endif; ?>
-                
+
                 <div class="ticket-content">
                     <h3 class="ticket-title"><?php echo $ticket->name; ?></h3>
-                    
+
                     <div class="ticket-info">
                         <span>Precio: $<?php echo $ticket->price; ?></span>
                         <span>Fecha: <?php echo $ticket->date; ?></span>
                     </div>
                 </div>
-                
+
                 <div class="ticket-actions">
                     <a href="<?php echo base_url('tickets/show/') . $ticket->idTicket; ?>" 
                        class="btn btn-dark btn-sm">Ver</a>
+                <?php if($this->session->userdata('role') == 'admin'): ?>
                     <a href="<?php echo base_url('tickets/edit/') . $ticket->idTicket; ?>" 
                        class="btn btn-dark btn-sm">Editar</a>
                     <form action="<?php echo base_url('tickets/delete/') . $ticket->idTicket; ?>" 
@@ -117,6 +121,7 @@
                           style="display:inline;">
                         <button type="submit" class="btn btn-dark btn-sm">Eliminar</button>
                     </form>
+                <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>

@@ -69,10 +69,12 @@
                 <td class="align-middle">
                     <div class="action-buttons">
                         <a href="<?php echo base_url('tickets'); ?>" class="btn btn-dark btn-sm">Volver</a>
+                    <?php if($this->session->userdata('role') == 'admin'): ?>
                         <a href="<?php echo base_url('tickets/edit/') . $ticket->idTicket; ?>" class="btn btn-dark btn-sm">Editar</a>
                         <form action="<?php echo base_url('tickets/delete/') . $ticket->idTicket; ?>" method="POST" style="display:inline;">
                             <button type="submit" class="btn btn-dark btn-sm">Eliminar</button>
                         </form>
+                        <?php endif; ?>
                     </div>
                 </td>
             </tr>
