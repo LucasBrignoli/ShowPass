@@ -32,4 +32,9 @@ class Ticket_model extends CI_Model {
         $this->db->delete('ticket', ['idTicket' => $id]);
     }
 
+    public function updateTicketAmount($idTicket, $newAmount) {
+        $this->db->where('idTicket', $idTicket);
+        $this->db->update('ticket', ['amount_available' => $newAmount]);
+    }
+
 }

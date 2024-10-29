@@ -156,6 +156,7 @@
                 <div class="show-info">
                     <p><strong>Precio:</strong> $<?php echo number_format($ticket->price, 2); ?></p>
                     <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($ticket->date)); ?></p>
+                    <p><strong>Hora:</strong> <?php echo date('H:i', strtotime($ticket->hora)); ?></p>
                     <p><strong>Entradas restantes:</strong> <?php echo $ticket->amount_available; ?></p>
                 </div>
                 

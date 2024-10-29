@@ -84,7 +84,7 @@ class Tickets extends CI_Controller {
         $this->upload->initialize($config);
     
         // Variable para la URL de la imagen - Ajustamos la ruta por defecto
-        $url = 'assets/uploads/shows/y9DpT.jpg';  // Asegúrate de que este archivo exista
+        $url = 'upload/y9DpT.jpg';  // Asegúrate de que este archivo exista
     
         // Intentar subir la imagen
         if (!empty($_FILES['url']['name'])) {
@@ -107,6 +107,7 @@ class Tickets extends CI_Controller {
             'state' => $this->input->post('state'),
             'amount_available' => $this->input->post('amount_available'),
             'date' => $this->input->post('date'),
+            'hora' => $this->input->post('hora'),
             'url' => $url
         ];
     
@@ -127,7 +128,8 @@ class Tickets extends CI_Controller {
 			'price' => $this->input->post('price'),
 			'state' => $this->input->post('state'),
 			'amount_available' => $this->input->post('amount_available'),
-			'date' => $this->input->post('date')
+			'date' => $this->input->post('date'),
+            'hora' => $this->input->post('hora')
 		];
 	
 		// Solo procesar la imagen si se subió una nueva
@@ -228,31 +230,41 @@ public function reserva($idTicket)
     $this->load->view('tickets/reserva', $data);
 }
 public function process_purchase($idTicket) {
-    // Obtener los datos del ticket
-    $ticket = $this->ticket_model->get_ticket_by_id($idTicket);
-    if (!$ticket) {
-        show_404();
-        return;
-    }
+    // Cargar modelo de Tickets y Ventas (asegúrate de tener un modelo de ventas)
+    $this->load->model('Ticket_model');
+    $this->load->model('Venta_model');
 
-    // Obtener la cantidad solicitada
+    // Obtener detalles del ticket
+    $ticket = $this->ticket_model->get_Ticket_By_Id($idTicket);
+
+    // Validar cantidad disponible
     $cantidad = $this->input->post('cantidad');
-    
-    // Verificar disponibilidad
     if ($cantidad > $ticket->amount_available) {
+        // Mostrar error si la cantidad solicitada supera las entradas disponibles
         $this->session->set_flashdata('error', 'No hay suficientes entradas disponibles.');
-        redirect('tickets/compra/' . $idTicket);
-        return;
+        redirect('tickets/show/' . $idTicket);
     }
 
-    // Actualizar el stock de entradas disponibles
-    $nueva_cantidad = $ticket->amount_available - $cantidad;
-    $this->ticket_model->update_ticket_by_id($idTicket, ['amount_available' => $nueva_cantidad]);
+    // Restar cantidad y actualizar en la tabla de tickets
+    $nuevo_amount = $ticket->amount_available - $cantidad;
+    $this->Ticket_model->updateTicketAmount($idTicket, $nuevo_amount);
 
-    // Guardar el mensaje de éxito
-    $this->session->set_flashdata('success', 'Se ha comprado la entrada para ' . htmlspecialchars($ticket->name));
+    // Agregar entrada a la tabla `ventas`
+    $dataVenta = [
+        'show' => $ticket->name,
+        'email' => $this->session->userdata('email'),
+        'amount' => $cantidad,
+        'fecha' => date('Y-m-d'), // Agrega la fecha actual
+        'hora' => date('H:i'), // Agrega la hora actual
+        'total' => $ticket->price * $cantidad, // Calcular total basado en cantidad
+    ];    
+    $this->Venta_model->addVenta($dataVenta);
 
-    // Redirigir a la página de listado de tickets
-    redirect('tickets/index');
+    // Redirigir y mostrar mensaje de éxito
+    $this->session->set_flashdata('success', 'Compra realizada con éxito.');
+    redirect('tickets/show/' . $idTicket);
 }
+
+
+
 }

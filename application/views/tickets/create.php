@@ -6,10 +6,8 @@
 
       <?php $minDate = date('Y-m-d', strtotime('+1 day')); ?>
       
-      <!-- Removido el action duplicado -->
       <form action="<?php echo base_url('tickets/store'); ?>" method="POST" class="text-light bg-dark rounded-4 border border-light p-3 mx-auto" enctype="multipart/form-data" style="max-width: 350px;">
         
-        <!-- Mostrar mensajes de error si existen -->
         <?php if($this->session->flashdata('error')): ?>
           <div class="alert alert-danger">
             <?php echo $this->session->flashdata('error'); ?>
@@ -37,6 +35,11 @@
           <label for="date" class="form-label">Fecha:</label>
           <input type="date" class="form-control bg-dark text-light border-secondary" id="date" name="date" required min="<?php echo $minDate; ?>">
         </div>
+
+        <div class="mb-3">
+          <label for="hora" class="form-label">Hora:</label>
+          <input type="time" class="form-control bg-dark text-light border-secondary" id="hora" name="hora" required>
+        </div>
         
         <div class="mb-3">
           <label for="url" class="form-label">Imagen</label>
@@ -44,7 +47,6 @@
         </div>
 
         <div class="mb-3">
-            <!-- Corregido type="submit" -->
             <button type="submit" class="btn btn-success w-100">Guardar</button>
         </div>
       </form>

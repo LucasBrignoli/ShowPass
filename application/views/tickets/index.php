@@ -92,7 +92,7 @@
     }
 </style>
 
-<h1 class="text-center text-white my-5">Lista de shows</h1>
+<h1 class="text-center text-white my-5">ShowPass</h1>
 
 <div class="tickets-grid">
     <?php if (!empty($tickets)): ?>
