@@ -1,83 +1,197 @@
 <style>
-    .table td, .table th {
-        text-align: center;
-        vertical-align: middle;
-    }
-    .action-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-    .action-buttons a, .action-buttons button {
-        display: inline-block;
+    .show-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
     }
 
-    /* Botones personalizados */
+    .show-header {
+        text-align: center;
+        padding: 2rem;
+        background-color: #343a40;
+        color: white;
+    }
+
+    .show-content {
+        display: flex;
+        padding: 2rem;
+        gap: 2rem;
+        background-color: #fff;
+    }
+
+    .show-image {
+        flex: 0 0 300px;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .show-image img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+    }
+
+    .show-details {
+        flex: 1;
+        color: #333;
+    }
+
+    .show-details h2 {
+        margin: 0 0 1.5rem 0;
+        color: #333;
+        font-size: 1.8rem;
+    }
+
+    .show-info {
+        margin-bottom: 1.5rem;
+    }
+
+    .show-info p {
+        margin: 0.5rem 0;
+        font-size: 1.1rem;
+        color: #666;
+    }
+
+    .show-info strong {
+        color: #333;
+        margin-right: 0.5rem;
+    }
+
+    .show-actions {
+        margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1.5rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
     .btn-dark {
         background-color: #343a40;
         color: #fff;
-        border: none;
     }
 
-    .btn-light {
-        background-color: #f8f9fa;
-        color: #343a40;
-        border: none;
+    .btn-dark:hover {
+        background-color: #23272b;
     }
 
     .btn-danger {
         background-color: #dc3545;
-        color: white;
-        border: none;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+    body {
+        background-image: url('<?php echo base_url("assets/images/fondo.png"); ?>');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+    }
+
+    /* Contenedor principal con fondo semi-transparente */
+    .main-container {
+        background-color: rgba(5, 7, 30, 0.85);
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+
+    /* Estilos para formularios */
+    .form-container {
+        background-color: rgba(33, 37, 41, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 0 auto;
+        max-width: 400px;
+    }
+
+    /* Estilos para cards */
+    .custom-card {
+        background-color: rgba(33, 37, 41, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    /* Estilos para inputs */
+    .form-control {
+        background-color: rgba(52, 58, 64, 0.9) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #fff !important;
+    }
+
+    .form-control:focus {
+        background-color: rgba(52, 58, 64, 0.95) !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Estilos para botones */
+    .btn-custom {
+        background-color: rgba(52, 58, 64, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        background-color: rgba(52, 58, 64, 1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
     }
 </style>
 
-<h1 class="text-center text-white my-5">Show</h1>
-<div class="table-responsive px-5">
-    <table class="table table-bordered table-dark table-striped">
-        <thead>
-          <tr>
-            <th scope="col" class="text-center">Show</th>
-            <th scope="col" class="text-center">Precio</th>
-            <th scope="col" class="text-center">Fecha del show</th>
-            <th scope="col" class="text-center">Entradas restantes</th>
-            <th scope="col" class="text-center">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="align-middle">
-                    <div class="d-flex flex-column align-items-center">
-                        <span class="mb-2"><?php echo $ticket->name; ?></span>
-                        <?php if (!empty($ticket->url)): ?>
-                            <img src="<?php echo $ticket->url; ?>" 
-                                 alt="Imagen del show" 
-                                 class="img-fluid" 
-                                 style="max-width: 150px; max-height: 150px;">
-                        <?php endif; ?>
-                    </div>
-                </td>
-                <td class="align-middle"><?php echo '$' . $ticket->price; ?></td>
-                <td class="align-middle"><?php echo $ticket->date; ?></td>
-                <td class="align-middle">
+<div class="show-container">
+    <div class="show-header">
+        <h1>Show</h1>
+    </div>
+    
+    <div class="show-content">
+        <div class="show-image">
+            <?php if (!empty($ticket->url)): ?>
+                <img src="<?php echo base_url($ticket->url); ?>" alt="Imagen del show">
+            <?php else: ?>
+                <img src="<?php echo base_url('assets/uploads/shows/default.jpg'); ?>" alt="Imagen por defecto">
+            <?php endif; ?>
+        </div>
+        
+        <div class="show-details">
+            <h2><?php echo htmlspecialchars($ticket->name); ?></h2>
+            
+            <div class="show-info">
+                <p><strong>Precio:</strong> $<?php echo number_format($ticket->price, 2); ?></p>
+                <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($ticket->date)); ?></p>
+                <p><strong>Entradas restantes:</strong> 
                     <?php if (!empty($ticket->state)): ?>
-                        <?php echo "Agotado"; ?>
+                        Agotado
                     <?php else: ?>
-                        <?php echo $ticket->amount_available ?>
+                        <?php echo $ticket->amount_available; ?>
                     <?php endif; ?>
-                </td>
-                <td class="align-middle">
-                    <div class="action-buttons">
-                        <a href="<?php echo base_url('tickets'); ?>" class="btn btn-dark btn-sm">Volver</a>
-                    <?php if($this->session->userdata('role') == 'admin'): ?>
-                        <a href="<?php echo base_url('tickets/edit/') . $ticket->idTicket; ?>" class="btn btn-dark btn-sm">Editar</a>
-                        <form action="<?php echo base_url('tickets/delete/') . $ticket->idTicket; ?>" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-dark btn-sm">Eliminar</button>
-                        </form>
-                        <?php endif; ?>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </p>
+            </div>
+            
+            <div class="show-actions">
+                <a href="<?php echo base_url('tickets'); ?>" class="btn btn-dark">Volver</a>
+                <?php if($this->session->userdata('role') == 'admin'): ?>
+                    <a href="<?php echo base_url('tickets/edit/') . $ticket->idTicket; ?>" class="btn btn-dark">Editar</a>
+                    <form action="<?php echo base_url('tickets/delete/') . $ticket->idTicket; ?>" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
 </div>

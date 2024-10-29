@@ -84,7 +84,7 @@ class Tickets extends CI_Controller {
         $this->upload->initialize($config);
     
         // Variable para la URL de la imagen - Ajustamos la ruta por defecto
-        $url = 'assets/uploads/shows/default.jpg';  // Asegúrate de que este archivo exista
+        $url = 'assets/uploads/shows/y9DpT.jpg';  // Asegúrate de que este archivo exista
     
         // Intentar subir la imagen
         if (!empty($_FILES['url']['name'])) {

@@ -532,4 +532,5 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 $config['upload_path'] = './uploads/shows/';
+
 //log_threshold
