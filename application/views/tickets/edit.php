@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
     <style>
+        /* Estilos del contenedor y fondo */
         .bg-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('<?php echo base_url("assets/uploads/shows/fondo.jpg"); ?>'); /* Ruta con base_url */
+            background-image: url('<?php echo base_url("assets/uploads/shows/fondo.png"); ?>');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -25,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(5, 7, 30, 0.85);
+            background-color: rgba(5, 7, 30, 0.5); /* Reducir opacidad para un color menos oscuro */
             z-index: -1;
         }
 
@@ -93,7 +94,7 @@
           <input type="number" class="form-control bg-dark text-light border-secondary" 
                  id="amount_available" name="amount_available" 
                  value="<?php echo $ticket->amount_available; ?>" 
-                 placeholder="Ingrese la cantidad" required min="1">
+                 placeholder="Ingrese la cantidad" required min="0">
         </div>
 
         <!-- Fecha -->
@@ -104,12 +105,19 @@
                  required min="<?php echo $minDate; ?>">
         </div>
 
+        <!-- Hora -->
+        <div class="mb-3">
+          <label for="hora" class="form-label">Hora:</label>
+          <input type="time" class="form-control bg-dark text-light border-secondary" 
+                 id="hora" name="hora" value="<?php echo date('H:i', strtotime($ticket->hora)); ?>" 
+                 required>
+        </div>
+
         <!-- Imagen -->
         <div class="mb-3">
           <label for="url" class="form-label">Imagen:</label>
           <input type="file" class="form-control bg-dark text-light border-secondary" 
                  id="url" name="url" accept="image/*">
-          <small class="text-muted">Imagen actual: <?php echo $ticket->url; ?></small>
         </div>
 
         <!-- Botón de envío -->
@@ -120,6 +128,20 @@
     </div>
   </div>
 </div>
+
+<!-- Script para actualizar automáticamente el estado a "Agotado" si la cantidad es 0 -->
+<script>
+    document.getElementById('amount_available').addEventListener('input', function () {
+        const amount = parseInt(this.value);
+        const stateSelect = document.getElementById('state');
+        
+        if (amount === 0) {
+            stateSelect.value = '1'; // Cambia el estado a "Agotado"
+        } else {
+            stateSelect.value = '0'; // Cambia el estado a "Disponible" si la cantidad es mayor a 0
+        }
+    });
+</script>
 
 </body>
 </html>

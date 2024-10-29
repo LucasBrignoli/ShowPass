@@ -210,4 +210,49 @@ class Tickets extends CI_Controller {
 
         redirect('tickets');
     }
+    public function compra($idTicket)
+{
+    // Obtener los datos del ticket
+    $data['ticket'] = $this->ticket_model->get_ticket_by_id($idTicket);
+
+    // Cargar la vista de compra
+    $this->load->view('tickets/compra', $data);
+}
+
+public function reserva($idTicket)
+{
+    // Obtener los datos del ticket
+    $data['ticket'] = $this->ticket_model->get_ticket_by_id($idTicket);
+
+    // Cargar la vista de reserva
+    $this->load->view('tickets/reserva', $data);
+}
+public function process_purchase($idTicket) {
+    // Obtener los datos del ticket
+    $ticket = $this->ticket_model->get_ticket_by_id($idTicket);
+    if (!$ticket) {
+        show_404();
+        return;
+    }
+
+    // Obtener la cantidad solicitada
+    $cantidad = $this->input->post('cantidad');
+    
+    // Verificar disponibilidad
+    if ($cantidad > $ticket->amount_available) {
+        $this->session->set_flashdata('error', 'No hay suficientes entradas disponibles.');
+        redirect('tickets/compra/' . $idTicket);
+        return;
+    }
+
+    // Actualizar el stock de entradas disponibles
+    $nueva_cantidad = $ticket->amount_available - $cantidad;
+    $this->ticket_model->update_ticket_by_id($idTicket, ['amount_available' => $nueva_cantidad]);
+
+    // Guardar el mensaje de éxito
+    $this->session->set_flashdata('success', 'Se ha comprado la entrada para ' . htmlspecialchars($ticket->name));
+
+    // Redirigir a la página de listado de tickets
+    redirect('tickets/index');
+}
 }

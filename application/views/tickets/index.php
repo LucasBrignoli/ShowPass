@@ -69,6 +69,16 @@
         border: none;
     }
 
+    /* Fondo de la página */
+    body {
+        background-image: url('<?php echo base_url("assets/uploads/shows/fondo.png"); ?>');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+    }
+
     .btn-light {
         background-color: #f8f9fa;
         color: #343a40;
@@ -80,9 +90,6 @@
         color: white;
         border: none;
     }
-    body {
-        background-color: #05071e;
-    }
 </style>
 
 <h1 class="text-center text-white my-5">Lista de shows</h1>
@@ -92,7 +99,7 @@
         <?php foreach($tickets as $ticket): ?>
             <div class="ticket-card">
                 <?php if (!empty($ticket->url)): ?>
-                    <img src="<?php echo $ticket->url; ?>" 
+                    <img src="<?php echo base_url($ticket->url); ?>" 
                          alt="Imagen del show <?php echo $ticket->name; ?>" 
                          class="ticket-image">
                 <?php else: ?>
@@ -104,15 +111,16 @@
                 <div class="ticket-content">
                     <h3 class="ticket-title"><?php echo $ticket->name; ?></h3>
 
-                    <div class="ticket-info">
-                        <span>Precio: $<?php echo $ticket->price; ?></span>
-                        <span>Fecha: <?php echo $ticket->date; ?></span>
-                    </div>
+                <div class="ticket-info">
+                     <span>Fecha: <?php echo $ticket->date; ?></span>
+                      <span>Hora: <?php echo date('H:i', strtotime($ticket->hora)); ?></span>
+                </div>
+
                 </div>
 
                 <div class="ticket-actions">
                     <a href="<?php echo base_url('tickets/show/') . $ticket->idTicket; ?>" 
-                       class="btn btn-dark btn-sm">Ver</a>
+                       class="btn btn-dark btn-sm">Detalle</a>
                 <?php if($this->session->userdata('role') == 'admin'): ?>
                     <a href="<?php echo base_url('tickets/edit/') . $ticket->idTicket; ?>" 
                        class="btn btn-dark btn-sm">Editar</a>

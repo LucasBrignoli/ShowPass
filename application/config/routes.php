@@ -59,3 +59,5 @@ $route['tickets/show/(:num)'] = 'tickets/show/$1';
 $route['tickets/edit/(:num)'] = 'tickets/edit/$1';
 $route['tickets/update/(:num)'] = 'tickets/update/$1';
 $route['tickets/delete/(:num)'] = 'tickets/delete/$1';
+$route['tickets/compra/(:any)'] = 'tickets/compra/$1';
+$route['tickets/reserva/(:any)'] = 'tickets/reserva/$1';

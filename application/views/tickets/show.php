@@ -92,22 +92,14 @@
     .btn-danger:hover {
         background-color: #c82333;
     }
-    body {
-        background-image: url('<?php echo base_url("assets/images/fondo.png"); ?>');
+    body {  
+        background-image: url('<?php echo base_url("assets/uploads/shows/fondo.png"); ?>') !important;
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
         min-height: 100vh;
     }
-
-    /* Contenedor principal con fondo semi-transparente */
-    .main-container {
-        background-color: rgba(5, 7, 30, 0.85);
-        min-height: 100vh;
-        padding: 2rem 0;
-    }
-
     /* Estilos para formularios */
     .form-container {
         background-color: rgba(33, 37, 41, 0.9);
@@ -172,14 +164,18 @@
             <h2><?php echo htmlspecialchars($ticket->name); ?></h2>
             
             <div class="show-info">
-                <p><strong>Precio:</strong> $<?php echo number_format($ticket->price, 2); ?></p>
                 <p><strong>Fecha:</strong> <?php echo date('d/m/Y', strtotime($ticket->date)); ?></p>
-                <p><strong>Entradas restantes:</strong> 
-                    <?php if (!empty($ticket->state)): ?>
-                        Agotado
-                    <?php else: ?>
-                        <?php echo $ticket->amount_available; ?>
-                    <?php endif; ?>
+                <p><strong>Hora:</strong> <?php echo date('H:i', strtotime($ticket->hora)); ?></p>
+                <p><strong>Estado:</strong> 
+                    <?php 
+                    if ($ticket->state == 0) {
+                        echo "Disponible";
+                    } elseif ($ticket->state == 1 && $ticket->amount_available > 0) {
+                        echo "Próximamente";
+                    } else {
+                        echo "Agotado";
+                    }
+                    ?>
                 </p>
             </div>
             
@@ -190,6 +186,11 @@
                     <form action="<?php echo base_url('tickets/delete/') . $ticket->idTicket; ?>" method="POST" style="display:inline;">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
+                <?php else: ?>
+                    <?php if ($ticket->amount_available > 0 && $ticket->state == 0): ?>
+                        <a href="<?php echo base_url('tickets/compra/') . $ticket->idTicket; ?>" class="btn btn-custom">Comprar Entradas</a>
+                        <a href="<?php echo base_url('tickets/reserva/') . $ticket->idTicket; ?>" class="btn btn-custom">Reservar Entradas</a>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

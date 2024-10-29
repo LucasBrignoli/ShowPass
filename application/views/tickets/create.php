@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h1 class="text-white my-4 text-center"><?php echo $title;?></h1>
+      <h1 class="my-4 text-center"><?php echo $title;?></h1>
 
       <?php $minDate = date('Y-m-d', strtotime('+1 day')); ?>
       
