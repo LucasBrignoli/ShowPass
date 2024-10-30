@@ -233,34 +233,35 @@ public function process_purchase($id) {
     // Obtenemos el ticket desde el modelo
     $ticket = $this->ticket_model->get_ticket_by_id($id);
 
-    // Validamos si el ticket existe y la cantidad de compra es válida
     if (!$ticket || $this->input->post('cantidad') > $ticket->amount_available) {
         show_error('No es posible realizar la compra.');
     }
 
-    // Cantidad de entradas que el usuario quiere comprar
     $cantidad = (int) $this->input->post('cantidad');
-
-    // Calculamos la cantidad restante de tickets
     $cantidad_restante = $ticket->amount_available - $cantidad;
 
-    // Actualizamos la cantidad de tickets y el estado si es necesario
     $data = [
         'amount_available' => $cantidad_restante,
-        'state' => ($cantidad_restante <= 0) ? 1 : $ticket->state // Cambiamos el estado a 1 (no disponible) si no hay más tickets
+        'state' => ($cantidad_restante <= 0) ? 1 : $ticket->state
     ];
 
-    // Llamamos al método del modelo para actualizar el ticket
     $this->ticket_model->update_ticket_by_id($id, $data);
 
-    // Aquí puedes agregar lógica para registrar la venta o hacer otras acciones necesarias
+    // Ajustamos los datos para que coincidan con la tabla actual
+    $venta_data = [
+        'show' => $ticket->name,
+        'email' => $this->session->userdata('email'),
+        'amount' => $cantidad,
+        'fecha' => $ticket->date,
+        'hora' => $ticket->hora,
+        'total' => $cantidad * $ticket->price
+    ];
 
-    // Redirigimos a una página de confirmación o mostramos un mensaje de éxito
+    $this->load->model('Venta_model');
+    $this->Venta_model->addVenta($venta_data);
+
     $this->session->set_flashdata('success', 'Compra realizada con éxito.');
-    redirect('tickets');
+    redirect('tickets/show/' . $id);
 }
-
-
-
 
 }
