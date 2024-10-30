@@ -3,7 +3,7 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h1 class="my-4 text-center"><?php echo $title;?></h1>
-
+      <link rel="stylesheet" href="<?php echo base_url('assets/css/create.css'); ?>">
       <?php $minDate = date('Y-m-d', strtotime('+1 day')); ?>
       
       <form action="<?php echo base_url('tickets/store'); ?>" method="POST" class="text-light bg-dark rounded-4 border border-light p-3 mx-auto" enctype="multipart/form-data" style="max-width: 350px;">

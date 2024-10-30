@@ -1,0 +1,19 @@
+.table td, .table th {
+    text-align: center;
+    vertical-align: middle;
+}
+.action-buttons {
+    display: flex;
+    justify-content: center;
+}
+.action-buttons a {
+    display: inline-block;
+}
+body {  
+    background-image: url("../uploads/shows/fondo.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}

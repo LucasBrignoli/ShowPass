@@ -5,45 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
-    <style>
-        /* Estilos del contenedor y fondo */
-        .bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('<?php echo base_url("assets/uploads/shows/fondo.png"); ?>');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -2;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(5, 7, 30, 0.5); /* Reducir opacidad para un color menos oscuro */
-            z-index: -1;
-        }
-
-        body {
-            min-height: 100vh;
-            position: relative;
-            margin: 0;
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/edit.css'); ?>">
 </head>
 <body>
-
 <!-- Fondo y overlay -->
 <div class="bg-container"></div>
 <div class="overlay"></div>

@@ -1,28 +1,7 @@
-<style>
-    .table td, .table th {
-        text-align: center;
-        vertical-align: middle;
-    }
-    .action-buttons {
-        display: flex;
-        justify-content: center;
-    }
-    .action-buttons a {
-        display: inline-block;
-    }
-    body {  
-        background-image: url('<?php echo base_url("assets/uploads/shows/fondo.png"); ?>') !important;
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        min-height: 100vh;
-    }
-</style>
-
 <h1 class="text-center text-white my-5">Lista de Ventas</h1>
 <div class="table-responsive px-5">
     <table class="table table-bordered table-dark table-striped">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/historial.css'); ?>">
         <thead>
             <tr>
                 <th scope="col" class="text-center">Show</th>

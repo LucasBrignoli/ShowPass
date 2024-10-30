@@ -247,7 +247,7 @@ public function process_purchase($id) {
     // Actualizamos la cantidad de tickets y el estado si es necesario
     $data = [
         'amount_available' => $cantidad_restante,
-        'state' => ($cantidad_restante <= 0) ? 0 : 1 // Cambiamos el estado a 0 si no hay más tickets
+        'state' => ($cantidad_restante <= 0) ? 1 : $ticket->state // Cambiamos el estado a 1 (no disponible) si no hay más tickets
     ];
 
     // Llamamos al método del modelo para actualizar el ticket
@@ -257,7 +257,7 @@ public function process_purchase($id) {
 
     // Redirigimos a una página de confirmación o mostramos un mensaje de éxito
     $this->session->set_flashdata('success', 'Compra realizada con éxito.');
-    redirect('tickets/show/' . $id);
+    redirect('tickets');
 }
 
 
