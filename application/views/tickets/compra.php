@@ -193,6 +193,24 @@ document.getElementById('cantidad').addEventListener('change', function(e) {
 });
 
 // Función para confirmar la compra
+// Actualiza el precio total en función de la cantidad seleccionada
+document.getElementById('cantidad').addEventListener('change', function(e) {
+    const cantidad = parseInt(e.target.value);
+    const precio = <?php echo $ticket->price; ?>;
+    const total = cantidad * precio;
+    document.getElementById('totalPrice').textContent = '$' + total.toFixed(2);
+
+    // Si la cantidad es igual a la cantidad disponible, deshabilitamos el botón de confirmación
+    if (cantidad >= <?php echo $ticket->amount_available; ?>) {
+        document.getElementById('confirmButton').disabled = true;
+        document.getElementById('confirmButton').textContent = 'Agotado';
+    } else {
+        document.getElementById('confirmButton').disabled = false;
+        document.getElementById('confirmButton').textContent = 'Confirmar Compra';
+    }
+});
+
+// Función para confirmar la compra
 function confirmPurchase() {
     const ticketName = "<?php echo htmlspecialchars($ticket->name); ?>";
     const cantidad = document.getElementById('cantidad').value;
@@ -204,6 +222,7 @@ function confirmPurchase() {
         }, 1500); // Espera 1.5 segundos antes de enviar el formulario
     }
 }
+
 </script>
 
 </body>

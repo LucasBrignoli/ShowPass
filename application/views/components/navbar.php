@@ -14,7 +14,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="<?php echo base_url('tickets'); ?>">Lista de Shows</a></li>
                         <?php if($this->session->userdata('role') == 'admin'): ?>
-                        <li><a class="dropdown-item" href="<?php echo base_url('tickets/historial'); ?>">Lista de Ventas</a></li>
+                        <li><a class="dropdown-item" href="<?php echo base_url('ventas'); ?>">Lista de Ventas</a></li>
                         <li><a class="dropdown-item" href="<?php echo base_url('tickets/create'); ?>">Nuevo Show</a></li>
                         <?php endif; ?>
                     </ul>
