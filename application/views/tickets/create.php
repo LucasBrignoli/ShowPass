@@ -28,7 +28,12 @@
 
         <div class="mb-3">
           <label for="quantity" class="form-label">Cantidad de tickets:</label>
-          <input type="number" class="form-control bg-dark text-light border-secondary" id="quantity" name="amount_available" placeholder="Ingrese la cantidad" required min="1">
+          <input type="number" class="form-control bg-dark text-light border-secondary" id="amount_available" name="amount_available" placeholder="Ingrese la cantidad" required min="1">
+        </div>
+
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Cantidad de reservas de tickets:</label>
+          <input type="number" class="form-control bg-dark text-light border-secondary" id="reservas" name="reservas" placeholder="Ingrese la cantidad" required min="1">
         </div>
 
         <div class="mb-3">

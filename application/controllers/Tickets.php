@@ -106,6 +106,7 @@ class Tickets extends CI_Controller {
             'price' => $this->input->post('price'),
             'state' => $this->input->post('state'),
             'amount_available' => $this->input->post('amount_available'),
+            'reservas' => $this->input->post('reservas'),
             'date' => $this->input->post('date'),
             'hora' => $this->input->post('hora'),
             'url' => $url
@@ -128,6 +129,7 @@ class Tickets extends CI_Controller {
 			'price' => $this->input->post('price'),
 			'state' => $this->input->post('state'),
 			'amount_available' => $this->input->post('amount_available'),
+            'reservas' => $this->input->post('reservas'),
 			'date' => $this->input->post('date'),
             'hora' => $this->input->post('hora')
 		];
@@ -251,7 +253,7 @@ public function process_purchase($id) {
     $venta_data = [
         'show' => $ticket->name,
         'email' => $this->session->userdata('email'),
-        'amount' => $cantidad,
+        'amount'=> $cantidad,
         'fecha' => $ticket->date,
         'hora' => $ticket->hora,
         'total' => $cantidad * $ticket->price
@@ -261,7 +263,43 @@ public function process_purchase($id) {
     $this->Venta_model->addVenta($venta_data);
 
     $this->session->set_flashdata('success', 'Compra realizada con éxito.');
-    redirect('tickets/show/' . $id);
+    redirect('tickets/index/');
 }
+
+public function process_reserva($id) {
+    // Obtenemos el ticket desde el modelo
+    $ticket = $this->ticket_model->get_ticket_by_id($id);
+
+    if (!$ticket || $this->input->post('cantidad') > $ticket->reservas) {
+        show_error('No es posible realizar la reserva.');
+    }
+
+    $cantidad = (int) $this->input->post('cantidad');
+    $cantidad_restante = $ticket->reservas - $cantidad;
+
+    $data = [
+        'reservas' => $cantidad_restante,
+    ];
+
+    $this->ticket_model->update_ticket_by_id($id, $data);
+
+    // Ajustamos los datos para que coincidan con la tabla actual
+    $reserva_data = [
+        'show' => $ticket->name,
+        'cliente' => $this->session->userdata('email'),
+        'amount'=> $cantidad,
+        'date' => $ticket->date,
+        'time' => $ticket->hora,
+        'total' => $cantidad * $ticket->price
+    ];
+
+    $this->load->model('Reserva_model');
+    $this->Reserva_model->addReserva($reserva_data);
+
+    $this->session->set_flashdata('success', 'Reserva realizada con éxito.');
+    redirect('tickets/index/');
+}
+
+
 
 }

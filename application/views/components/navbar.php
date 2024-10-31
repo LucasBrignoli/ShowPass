@@ -12,10 +12,11 @@
                         Menú
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo base_url('tickets'); ?>">Lista de Shows</a></li>
+                        <li><a class="dropdown-item" href="<?php echo base_url('tickets'); ?>">Lista de shows</a></li>
+                        <li><a class="dropdown-item" href="<?php echo base_url('reservas'); ?>">Lista de reservas</a></li>
                         <?php if($this->session->userdata('role') == 'admin'): ?>
-                        <li><a class="dropdown-item" href="<?php echo base_url('ventas'); ?>">Lista de Ventas</a></li>
-                        <li><a class="dropdown-item" href="<?php echo base_url('tickets/create'); ?>">Nuevo Show</a></li>
+                        <li><a class="dropdown-item" href="<?php echo base_url('ventas'); ?>">Lista de ventas</a></li>
+                        <li><a class="dropdown-item" href="<?php echo base_url('tickets/create'); ?>">Nuevo show</a></li>
                         <?php endif; ?>
                     </ul>
                 </li>

@@ -61,6 +61,17 @@
                  placeholder="Ingrese la cantidad" required min="0">
         </div>
 
+        <!-- Cantidad de tickets -->
+        <div class="mb-3">
+          <label for="reservas" class="form-label">Cantidad de tickets de reserva:</label>
+          <input type="number" class="form-control bg-dark text-light border-secondary" 
+                 id="reservas" name="reservas" 
+                 value="<?php echo $ticket->reservas; ?>" 
+                 placeholder="Ingrese la cantidad" required min="0">
+        </div>
+
+
+
         <!-- Fecha -->
         <div class="mb-3">
           <label for="date" class="form-label">Fecha:</label>

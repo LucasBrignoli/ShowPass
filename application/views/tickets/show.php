@@ -44,9 +44,11 @@
                     </form>
                 <?php else: ?>
                     <?php if ($ticket->amount_available > 0 && $ticket->state == 0): ?>
-                        <a href="<?php echo base_url('tickets/compra/') . $ticket->idTicket; ?>" class="btn btn-custom">Comprar Entradas</a>
-                        <a href="<?php echo base_url('tickets/reserva/') . $ticket->idTicket; ?>" class="btn btn-custom">Reservar Entradas</a>
+                        <a href="<?php echo base_url('tickets/compra/') . $ticket->idTicket; ?>" class="btn btn-custom">Comprar Entradas</a>   
                     <?php endif; ?>
+                    <?php if ($ticket->reservas > 0 && $ticket->state == 1): ?>   
+                            <a href="<?php echo base_url('tickets/reserva/') . $ticket->idTicket; ?>" class="btn btn-custom">Reservar Entradas</a>
+                        <?php endif; ?> 
                 <?php endif; ?>
             </div>
         </div>
