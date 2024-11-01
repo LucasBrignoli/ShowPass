@@ -26,7 +26,7 @@
                     <?php 
                     if ($ticket->state == 0) {
                         echo "Disponible";
-                    } elseif ($ticket->state == 1 && $ticket->amount_available > 0) {
+                    } elseif ($ticket->state == 1 && $ticket->reservas > 0) {
                         echo "Próximamente";
                     } else {
                         echo "Agotado";
